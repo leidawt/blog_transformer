@@ -5,7 +5,7 @@ Tool for markdown blog migrate
 This tool do the things below:
 
 1. Input a markdown file, download all pictures from "\!\[\]\(https://xxx.xxx\)", saved as {%d}.xxx
-2. Modify the "\!\[\]\(https://xxx.xxx\)" to the request form(for example, \{\{\<figure src = "{0}" title = "" lightbox = "true">\}\} which is requested by [Hugo](https://sourcethemes.com/academic/docs/writing-markdown-latex/#images))
+2. Modify the "\!\[\]\(https://xxx.xxx\)" to the request form(for example, \{\{\<figure src = "{0}" title = "" lightbox = "true">\}\} which is required by [Hugo](https://sourcethemes.com/academic/docs/writing-markdown-latex/#images))
 
 For example:
 
