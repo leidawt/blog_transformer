@@ -1,4 +1,8 @@
+#! py -3
+#!/usr/bin/env python3
+
 import os
+import sys
 import argparse
 from blog_transformer import BlogTransformer
 import codecs
@@ -19,7 +23,8 @@ if __name__ == "__main__":
         # for "utf-8 with dom" format
         with open(args['f'], 'r', encoding='utf-8-sig') as f:
             md = f.read()
-    with open('templete.md', 'r') as f:
+    with open(sys.path[0]+'/templete.md', 'r') as f:
+        # sys.path[0] is the path were this file(pipline.py) locate
         templete = f.read()
     file_name = os.path.basename(args['f']).split('.')[0]
     print('file_name = {}'.format(file_name))

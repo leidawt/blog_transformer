@@ -1,3 +1,6 @@
+#! py -3
+#!/usr/bin/env python3
+
 import re
 from urllib.request import urlretrieve
 import argparse
@@ -7,6 +10,11 @@ import codecs
 
 class BlogTransformer:
     def __init__(self, mode='hexo-academic'):
+        """__init__ init class
+
+        Args:
+            mode (str, optional): REPLACE mode select. Defaults to 'hexo-academic'.
+        """
         self.MD_FILE = ''
         self.SAVE_PATH = ''
         self.REPLACE_MODE = ''
@@ -16,6 +24,19 @@ class BlogTransformer:
             self.REPLACE_MODE = '{{{{<figure src = "{0}" title = "" lightbox = "true">}}}}'
 
     def _pic_download(self, url, path, file_name):
+        """_pic_download download picture
+
+        Args:
+            url (str): url
+            path (str): save path for the picture
+            file_name (str): name for the picture
+
+        Raises:
+            ValueError: raise when there exist not supported pic type for url, only png jpg gif is supported
+
+        Returns:
+            (save_name, file_type): -
+        """
         file_type = ''
         if '.png' in url:
             file_type = '.png'
@@ -32,6 +53,19 @@ class BlogTransformer:
         return save_name, file_type
 
     def run(self, md_file, save_path='', save=True):
+        """run download every pic url and modified the markdown
+
+        Args:
+            md_file (str): input markdown string
+            save_path (str, optional): path to save the modified markdown, when set to default, use the same path as imput markdown file. Defaults to ''.
+            save (bool, optional): Save the modified markdown?. Defaults to True.
+
+        Raises:
+            ValueError: raise when there are errors in matching pic url, i.e. meet invalid regex match 
+
+        Returns:
+            str: modified markdown
+        """
         self.MD_FILE = md_file
         if save_path == '':
             # use the same dir as md_file
