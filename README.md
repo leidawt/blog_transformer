@@ -22,6 +22,8 @@ Output markdown:
 
 
 In the same time, 0.png is downloaded into the path where Input markdown file exist.
+# Install
+git clone this repo, add envionment variables(optional)
 
 # Usage
 ## Use blog_transformer
@@ -29,7 +31,11 @@ In the same time, 0.png is downloaded into the path where Input markdown file ex
 ```bash
 python3 blog_transformer.py -f YorMarkdown.md
 ```
-or import to python
+if envionment variables is set, the script can be run anywhere:
+```bash
+blog_transformer.py -f YorMarkdown.md
+```
+Or use it by import to python
 
 ```python
 from blog_transformer import BlogTransformer
