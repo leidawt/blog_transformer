@@ -31,9 +31,6 @@ class BlogTransformer:
             path (str): save path for the picture
             file_name (str): name for the picture
 
-        Raises:
-            ValueError: raise when there exist not supported pic type for url, only png jpg gif is supported
-
         Returns:
             (save_name, file_type): -
         """
@@ -45,7 +42,8 @@ class BlogTransformer:
         elif '.gif' in url:
             file_type = '.gif'
         else:
-            raise ValueError('Not supported pic type for url: {}'.format(url))
+            # for some url without expicity file_type, use .png
+            file_type = '.png'
         save_name = os.path.join(path, file_name+file_type)
         print('saving to {}'.format(save_name))
 
@@ -92,11 +90,8 @@ class BlogTransformer:
 
             else:
                 raise ValueError('Err in matching url in {}'.format(each))
-            try:
-                save_name, file_type = self._pic_download(
-                    url, self.SAVE_PATH, id)
-            except(ValueError):
-                pass
+            save_name, file_type = self._pic_download(
+                url, self.SAVE_PATH, id)
             print('Done')
             replace_str = self.REPLACE_MODE.format(id+file_type)
             print('Replacing {} to {}'.format(each, replace_str))
