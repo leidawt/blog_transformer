@@ -9,19 +9,23 @@ import codecs
 
 
 class BlogTransformer:
-    def __init__(self, mode='hexo-academic'):
+    def __init__(self, mode='hugo-academic'):
         """__init__ init class
 
         Args:
-            mode (str, optional): REPLACE mode select. Defaults to 'hexo-academic'.
+            mode (str, optional): REPLACE mode select. Defaults to 'hugo-academic'.
         """
         self.MD_FILE = ''
         self.SAVE_PATH = ''
         self.REPLACE_MODE = ''
-        if mode == 'hexo-academic':
+        if mode == 'hugo-academic':
             # https://sourcethemes.com/academic/docs/writing-markdown-latex/#images
+            # use format required by hugo
             # {{<figure src = "{0}" title = "" lightbox = "true">}}
             self.REPLACE_MODE = '{{{{<figure src = "{0}" title = "" lightbox = "true">}}}}'
+        if mode == 'local-img-url':
+            # use standard markdown format
+            self.REPLACE_MODE = '![]({0})'
 
     def _pic_download(self, url, path, file_name):
         """_pic_download download picture
@@ -113,7 +117,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()  # init
     parser.add_argument('-f', help="input markdown file")
     parser.add_argument('-d', help="path to save pictures", default='')
-    parser.add_argument('-m', help="replace mode", default='hexo-academic')
+    parser.add_argument('-m', help="replace mode", default='hugo-academic')
     args = vars(parser.parse_args())
 
     print('MD_FILE = {}'.format(args['f']))

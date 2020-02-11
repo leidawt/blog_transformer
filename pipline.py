@@ -12,7 +12,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()  # init
     parser.add_argument('-f', help="input markdown file")
     parser.add_argument('-t', help="time in format YYYY-MM-DD")
-    parser.add_argument('-d', help="path to post dir", default='')
+    # parser.add_argument('-d', help="path to post dir", default='')
     args = vars(parser.parse_args())
 
     # read markdown file into str
