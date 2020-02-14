@@ -12,7 +12,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()  # init
     parser.add_argument('-f', help="input markdown file")
     parser.add_argument('-t', help="time in format YYYY-MM-DD")
-    # parser.add_argument('-d', help="path to post dir", default='')
+    parser.add_argument('-d', help="path to save", default='')
     args = vars(parser.parse_args())
 
     # read markdown file into str
@@ -28,9 +28,16 @@ if __name__ == "__main__":
         templete = f.read()
     file_name = os.path.basename(args['f']).split('.')[0]
     print('file_name = {}'.format(file_name))
-    new_dir = os.path.join(os.path.dirname(
-        os.path.abspath(args['f'])), file_name)
-    os.mkdir(new_dir)
+    if args['d'] == '':
+        new_dir = os.path.join(os.path.dirname(os.path.abspath(args['f'])), file_name)
+    else:
+        # args['d'] should be absolute path
+        new_dir = os.path.join(args['d'], file_name)
+    try:
+        os.mkdir(new_dir)
+    except(FileExistsError):
+        print('dir already exist, pass')
+        sys.exit(0)
     templete = templete.replace('TITLE_TO_BE_REPLACED', file_name)
     templete = templete.replace('TIME_TO_BE_REPLACED',
                                 '{}T12:00:00+08:00'.format(args['t']))
