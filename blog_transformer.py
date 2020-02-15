@@ -88,7 +88,7 @@ class BlogTransformer:
         for id, each in enumerate(url_commands):
             id = str(id)
             url = re.findall(r"!\[[\s\S]*?\]\((.+?)\)", each)
-            if url is not []:
+            if url:
                 url = url[0]
                 print("Downloading: {}".format(url))
 
