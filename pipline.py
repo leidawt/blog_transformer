@@ -7,7 +7,7 @@ import argparse
 from blog_transformer import BlogTransformer
 import codecs
 import re
-
+ENABLE_MATHJAX_FIX = True
 
 if __name__ == "__main__":
 
@@ -44,5 +44,15 @@ if __name__ == "__main__":
     print("toc list: ",toc)
     for each in toc:
         md = md.replace(each,"")
+    md = md.replace("@[toc]","")
+    # try to fix the confliction between mathjax and markdown
+    if ENABLE_MATHJAX_FIX:
+        latex_exps = re.findall(r"\$(.+?)\$", md)
+        print(latex_exps)
+        for latex_exp in latex_exps:
+            print(latex_exp)
+            latex_exp_=latex_exp.replace("*","\*")
+            latex_exp_=latex_exp_.replace("_","\_")
+            md = md.replace(latex_exp,latex_exp_)            
     with codecs.open(os.path.join(new_dir, "index.md"), "w", "utf-8") as f:
         f.write(templete+'\n'+md)
